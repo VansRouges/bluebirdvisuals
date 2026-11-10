@@ -6,9 +6,32 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
+  min-width: 0;
+  overflow-x: hidden;
   background: #fff;
   color: #101010;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/* Prevent a grid child from forcing a horizontal page overflow. */
+.grid > * {
+  min-width: 0;
+}
+
+/* Retain the requested desktop presentation scale without compromising
+   the mobile and narrow-tablet layout breakpoints. */
+@media (min-width: 768px) {
+  body {
+    zoom: 0.8;
+  }
 }
