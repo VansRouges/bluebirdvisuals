@@ -4,30 +4,31 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
 
-const primaryLinks = [
-  ["Home", "/"],
-  ["Works", "/works"],
-  ["About", "/about"],
-  ["Contact", "/contact"],
-];
-
-const socialLinks = [
-  ["X (Twitter)", "#"],
-  ["Instagram", "#"],
-  ["Contra", "#"],
-  ["99design", "#"],
-];
-
 type FooterLink = { label: string; url: string; enabled?: boolean };
 type FooterContent = { enabled?: boolean; heading?: string; buttonLabel?: string; buttonUrl?: string; primaryLinks?: FooterLink[]; socialLinks?: FooterLink[]; copyrightText?: string; creditText?: string };
+
+const primaryLinks: FooterLink[] = [
+  { label: "Home", url: "/" },
+  { label: "Works", url: "/works" },
+  { label: "About", url: "/about" },
+  { label: "Contact", url: "/contact" },
+];
+
+const socialLinks: FooterLink[] = [
+  { label: "X (Twitter)", url: "#" },
+  { label: "Instagram", url: "#" },
+  { label: "Contra", url: "#" },
+  { label: "99design", url: "#" },
+];
+
 const footerQuery = `*[_type == "footerSettings"][0]{enabled, heading, buttonLabel, buttonUrl, primaryLinks, socialLinks, copyrightText, creditText}`;
 
 export function SiteFooter() {
   const [content, setContent] = useState<FooterContent | null>(null);
   useEffect(() => { client.fetch<FooterContent | null>(footerQuery).then(setContent).catch(() => undefined); }, []);
   if (content?.enabled === false) return null;
-  const visiblePrimaryLinks = (content?.primaryLinks ?? primaryLinks.map(([label, url]) => ({ label, url }))).filter(({ enabled }) => enabled !== false);
-  const visibleSocialLinks = (content?.socialLinks ?? socialLinks.map(([label, url]) => ({ label, url }))).filter(({ enabled }) => enabled !== false);
+  const visiblePrimaryLinks = (content?.primaryLinks ?? primaryLinks).filter(({ enabled }) => enabled !== false);
+  const visibleSocialLinks = (content?.socialLinks ?? socialLinks).filter(({ enabled }) => enabled !== false);
   return (
     <footer className="bg-[#0d0d0d] px-5 py-20 text-white [background-image:radial-gradient(rgba(255,255,255,0.055)_0.6px,transparent_0.8px)] [background-size:4px_4px] md:px-[14.5vw] md:py-28">
       <div className="grid gap-14 md:grid-cols-[1fr_auto] md:gap-28">
