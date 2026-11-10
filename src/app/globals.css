@@ -34,4 +34,10 @@ canvas {
   body {
     zoom: 0.8;
   }
+
+  /* The embedded Studio uses viewport-sized panels; keep it at native scale. */
+  body:has(.sanity-studio-shell) {
+    zoom: 1;
+    background: #101014;
+  }
 }

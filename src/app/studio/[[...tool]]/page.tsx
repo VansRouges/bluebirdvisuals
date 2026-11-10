@@ -15,5 +15,5 @@ export const dynamic = 'force-static'
 export { metadata, viewport } from 'next-sanity/studio'
 
 export default function StudioPage() {
-  return <NextStudio config={config} />
+  return <main className="sanity-studio-shell min-h-screen bg-[#101014]"><NextStudio config={config} /></main>
 }
